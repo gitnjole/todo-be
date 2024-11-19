@@ -25,7 +25,7 @@ class TaskType extends AbstractType
             ])
             ->add('finished', CheckboxType::class, [
                 'label' => 'Finished already?',
-                'required' => true
+                'required' => false
             ]);
     }
 
