@@ -91,3 +91,9 @@ src/
 ```bash
 php bin/phpunit
 ```
+
+# TODO
+
+- Write more tests
+- Expose API endpoints
+- Improve design
