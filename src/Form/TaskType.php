@@ -6,6 +6,9 @@ use App\Entity\Task;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,17 +17,16 @@ class TaskType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
-            ->add('description')
-            ->add('is_finished')
-            ->add('created_at', null, [
-                'widget' => 'single_text',
+            ->add('title', TextType::class, [
+                'required' => true,
             ])
-            ->add('user_task', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
+            ->add('description', TextareaType::class, [
+                'required' => false,
             ])
-        ;
+            ->add('finished', CheckboxType::class, [
+                'label' => 'Finished already?',
+                'required' => true
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
