@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register!{% endblock %}
+
+{% block body %}
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
+    <h1 class="h3 mb-3 font-weight-normal">Please register</h1>
+
+    {{ form_start(registrationForm, {'attr': {'class': 'needs-validation'}}) }}
+    {{ form_row(registrationForm.email, {
+        label: 'Email',
+        attr: {
+            autofocus: true
+        }
+    }) }}
+
+    {{ form_row(registrationForm.password, {
+        label: 'Password'
+    }) }}
+
+    <button class="btn btn-lg btn-primary" type="submit">
+        Register
+    </button>
+    {{ form_end(registrationForm) }}
+{% endblock %}

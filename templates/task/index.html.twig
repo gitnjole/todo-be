@@ -1,41 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Task index{% endblock %}
+{% block page_styles %}
+    <link rel="stylesheet" href="{{ asset('css/tasks.css') }}">
+{% endblock %}
 
 {% block body %}
-    <h1>Task index</h1>
+    <div class="tasks-container">
+        <h1>Task index</h1>
 
-    <table class="table">
-        <thead>
+        <table class="tasks-table">
+            <thead>
             <tr>
                 <th>Id</th>
                 <th>Title</th>
                 <th>Description</th>
-                <th>Is_finished</th>
-                <th>Created_at</th>
-                <th>actions</th>
+                <th>Status</th>
+                <th>Created At</th>
+                <th>Actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for task in tasks %}
-            <tr>
-                <td>{{ task.id }}</td>
-                <td>{{ task.title }}</td>
-                <td>{{ task.description }}</td>
-                <td>{{ task.isFinished ? 'Yes' : 'No' }}</td>
-                <td>{{ task.createdAt ? task.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_task_show', {'id': task.id}) }}">show</a>
-                    <a href="{{ path('app_task_edit', {'id': task.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for task in tasks %}
+                <tr>
+                    <td>{{ task.id }}</td>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.description }}</td>
+                    <td class="status-{{ task.isFinished ? 'finished' : 'pending' }}">
+                        {{ task.isFinished ? 'Finished' : 'Pending' }}
+                    </td>
+                    <td>{{ task.createdAt ? task.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td class="actions">
+                        <a href="{{ path('app_task_show', {'id': task.id}) }}">Show</a>
+                        <a href="{{ path('app_task_edit', {'id': task.id}) }}">Edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6" class="no-records">No records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    <a href="{{ path('app_task_new') }}">Create new</a>
+        <a href="{{ path('app_task_new') }}" class="btn create-new-btn">Create new</a>
+    </div>
 {% endblock %}
