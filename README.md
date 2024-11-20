@@ -24,8 +24,8 @@ This is a web-based TODO application built using the Symfony PHP framework. The 
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/symfony-todo-app.git
-cd symfony-todo-app
+git clone https://github.com/gitnjole/todo-be.git
+cd todo-be
 ```
 
 2. Install dependencies
@@ -52,23 +52,23 @@ symfony server:start
 
 ```
 src/
-├── Controller/          # Handles HTTP requests and responses
+├── Controller         # Handles HTTP requests and responses
 │   ├── RegistrationController.php
 │   ├── SecurityController.php
 │   └── TaskController.php
-├── Entity/              # Database entity definitions
+├── Entity             # Database entity definitions
 │   ├── Task.php
 │   └── User.php
-├── Form/                # Form type definitions
+├── Form               # Form type definitions
 │   ├── RegistrationType.php
 │   └── TaskType.php
-├── Repository/          # Database query repositories
+├── Repository         # Database query repositories
 │   ├── TaskRepository.php
 │   └── UserRepository.php
-├── Security/            # Authentication and authorization
+├── Security           # Authentication and authorization
 │   ├── AppAuthenticator.php
 │   └── TaskVoter.php
-└── Service/             # Business logic services
+└── Service            # Business logic services
     ├── RegistrationService.php
     └── TaskService.php
 ```
@@ -94,6 +94,6 @@ php bin/phpunit
 
 # TODO
 
-- Write more tests
-- Expose API endpoints
-- Improve design
+- [ ] Write more tests
+- [ ] Expose API endpoints
+- [x] Improve design
