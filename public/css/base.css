@@ -1,9 +1,10 @@
 :root {
-    --primary-color: #3498db;
+    --primary-color: #4a90e2;
     --secondary-color: #2ecc71;
     --background-color: #f4f4f4;
-    --text-color: #333;
-    --border-color: #ddd;
+    --text-color: #2c3e50;
+    --border-color: #e9ecef;
+    --warning-color: #f39c12;
 }
 
 * {
@@ -67,4 +68,33 @@ input, textarea {
     margin-bottom: 15px;
     border: 1px solid var(--border-color);
     border-radius: 4px;
+}
+
+.site-footer {
+    background-color: #f4f4f4;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-section {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.footer-link {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: #666;
 }
