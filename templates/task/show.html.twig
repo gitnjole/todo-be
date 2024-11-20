@@ -1,38 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Task{% endblock %}
+{% block title %}Task Details{% endblock %}
 
 {% block body %}
-    <h1>Task</h1>
+    <div class="task-detail-container">
+        <div class="task-detail-card">
+            <div class="detail-header">
+                <a href="{{ path('app_task_index') }}" class="back-link">
+                    ← Back to Tasks
+                </a>
+                <div class="detail-actions">
+                    <a href="{{ path('app_task_edit', {'id': task.id}) }}" class="btn-edit">
+                        Edit
+                    </a>
+                    {{ include('task/_delete_form.html.twig') }}
+                </div>
+            </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ task.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ task.title }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ task.description }}</td>
-            </tr>
-            <tr>
-                <th>Is_finished</th>
-                <td>{{ task.isFinished ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Created_at</th>
-                <td>{{ task.createdAt ? task.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <div class="detail-content">
+                <div class="detail-title">
+                    <h1>{{ task.title }}</h1>
+                    <span class="status-badge {{ task.isFinished ? 'finished' : 'pending' }}">
+                        {{ task.isFinished ? 'Finished' : 'Pending' }}
+                    </span>
+                </div>
 
-    <a href="{{ path('app_task_index') }}">back to list</a>
+                <div class="detail-info">
+                    <div class="info-section">
+                        <h3>Description</h3>
+                        <p>{{ task.description }}</p>
+                    </div>
 
-    <a href="{{ path('app_task_edit', {'id': task.id}) }}">edit</a>
-
-    {{ include('task/_delete_form.html.twig') }}
+                    <div class="info-section">
+                        <h3>Created</h3>
+                        <p>{{ task.createdAt ? task.createdAt|date('F d, Y \a\t H:i') : '' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

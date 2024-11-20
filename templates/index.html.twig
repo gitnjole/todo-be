@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="home-container">
+        <div class="hero-section">
+            <h1>TODO Backend Task App</h1>
+
+            <div class="hero-actions">
+                    <a href="{{ path('app_login') }}" class="btn btn-primary">Log In</a>
+                    <a href="{{ path('app_register') }}" class="btn btn-secondary">Register</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
