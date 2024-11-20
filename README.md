@@ -4,6 +4,10 @@
 
 This is a web-based TODO application built using the Symfony PHP framework. The application provides user authentication and task management functionality, allowing users to create, track, and manage their personal TODO lists.
 
+<div align="center">
+  <img src="assets/images/landing.png" alt="Task Management Screenshot">
+</div>
+
 ## Features
 
 - User Registration and Authentication
@@ -94,6 +98,6 @@ php bin/phpunit
 
 # TODO
 
-- [ ] Write more tests
-- [ ] Expose API endpoints
-- [x] Improve design
+<div align="center">
+  <img src="assets/images/overview.png" alt="Task Management Screenshot">
+</div>
