@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'register')]
+    #[Route('/register', name: 'app_register')]
     public function register(Request $request, RegistrationService $registrationService): Response
     {
         $user = new User();
