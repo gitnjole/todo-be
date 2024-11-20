@@ -6,42 +6,36 @@
 
 {% block body %}
     <div class="tasks-container">
-        <h1>Task index</h1>
+        <h1>My Tasks</h1>
 
-        <table class="tasks-table">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Created At</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
+        <div class="tasks-grid">
             {% for task in tasks %}
-                <tr>
-                    <td>{{ task.id }}</td>
-                    <td>{{ task.title }}</td>
-                    <td>{{ task.description }}</td>
-                    <td class="status-{{ task.isFinished ? 'finished' : 'pending' }}">
-                        {{ task.isFinished ? 'Finished' : 'Pending' }}
-                    </td>
-                    <td>{{ task.createdAt ? task.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                    <td class="actions">
-                        <a href="{{ path('app_task_show', {'id': task.id}) }}">Show</a>
-                        <a href="{{ path('app_task_edit', {'id': task.id}) }}">Edit</a>
-                    </td>
-                </tr>
+                <div class="task-card {{ task.isFinished ? 'finished' : 'pending' }}">
+                    <div class="task-header">
+                        <h3>{{ task.title }}</h3>
+                        <span class="task-date">{{ task.createdAt ? task.createdAt|date('M d, Y') : '' }}</span>
+                    </div>
+                    <div class="task-content">
+                        <p>{{ task.description }}</p>
+                    </div>
+                    <div class="task-footer">
+                        <span class="status-badge">{{ task.isFinished ? 'Finished' : 'Pending' }}</span>
+                        <div class="actions">
+                            <a href="{{ path('app_task_show', {'id': task.id}) }}" class="btn-icon">👁️</a>
+                            <a href="{{ path('app_task_edit', {'id': task.id}) }}" class="btn-icon">✏️</a>
+                        </div>
+                    </div>
+                </div>
             {% else %}
-                <tr>
-                    <td colspan="6" class="no-records">No records found</td>
-                </tr>
+                <div class="no-tasks">
+                    <p>No tasks created yet.</p>
+                    <span class="empty-icon">📝</span>
+                </div>
             {% endfor %}
-            </tbody>
-        </table>
+        </div>
 
-        <a href="{{ path('app_task_new') }}" class="btn create-new-btn">Create new</a>
+        <a href="{{ path('app_task_new') }}" class="create-new-btn">
+            <span class="plus-icon">+</span> Create New Task
+        </a>
     </div>
 {% endblock %}
