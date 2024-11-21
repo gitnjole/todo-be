@@ -38,8 +38,8 @@ final class TaskController extends AbstractController
      *
      * @return Response
      */
-    #[Route('/new', name: 'app_task_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, TaskService $taskService): Response
+    #[Route('/create', name: 'app_task_create', methods: ['GET', 'POST'])]
+    public function create(Request $request, TaskService $taskService): Response
     {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
@@ -50,27 +50,10 @@ final class TaskController extends AbstractController
             return $this->redirectToRoute('app_task_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('task/new.html.twig', [
+        return $this->render('task/create.html.twig', [
             'task' => $task,
             'form' => $form,
         ]);
-    }
-
-    /**
-     * @param Task $task
-     * @param EntityManagerInterface $entityManager
-     *
-     * @return Response
-     */
-    #[Route('/{id}/toggle', name: 'app_task_toggle', methods: ['POST'])]
-    public function toggleTask(Task $task, EntityManagerInterface $entityManager): Response
-    {
-        $this->denyAccessUnlessGranted('TASK_EDIT', $task);
-
-        $task->setFinished(!$task->isFinished());
-        $entityManager->flush();
-
-        return $this->redirectToRoute('app_task_index');
     }
 
     /**

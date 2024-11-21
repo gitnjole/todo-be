@@ -28,12 +28,6 @@ class TaskService
         $this->entityManager->flush();
     }
 
-    public function toggleStatus(Task $task, User $user): void
-    {
-        $task->setFinished(!$task->isFinished());
-        $this->entityManager->flush();
-    }
-
     public function update(Task $task): void
     {
         $this->entityManager->flush();
