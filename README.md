@@ -57,9 +57,9 @@ symfony server:start
 ```
 src/
 ├── Controller         # Handles HTTP requests and responses
-│   ├── RegistrationController.php
 │   ├── SecurityController.php
-│   └── TaskController.php
+│   ├── TaskController.php
+│   └── UserController.php
 ├── Entity             # Database entity definitions
 │   ├── Task.php
 │   └── User.php
@@ -73,8 +73,8 @@ src/
 │   ├── AppAuthenticator.php
 │   └── TaskVoter.php
 └── Service            # Business logic services
-    ├── RegistrationService.php
-    └── TaskService.php
+    ├── TaskService.php
+    └── UserService.php
 ```
 
 ## Authentication Flow
@@ -95,6 +95,8 @@ src/
 ```bash
 php bin/phpunit
 ```
+
+Currently, there are two tests, `TaskServiceTest` and `UserServiceTest` which both cover core business logic.
 
 # TODO
 
