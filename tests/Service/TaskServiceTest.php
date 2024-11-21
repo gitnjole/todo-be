@@ -7,50 +7,102 @@ use App\Entity\User;
 use App\Repository\TaskRepository;
 use App\Service\TaskService;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class TaskServiceTest extends TestCase
 {
+    private EntityManagerInterface|MockObject $entityManagerMock;
+    private TaskRepository|MockObject $taskRepositoryMock;
     private TaskService $taskService;
-    private TaskRepository $taskRepository;
-    private EntityManagerInterface $entityManager;
+    private User $user;
 
     protected function setUp(): void
     {
-        $this->taskRepository = $this->createMock(TaskRepository::class);
-        $this->entityManager = $this->createMock(EntityManagerInterface::class);
+        $this->entityManagerMock = $this->createMock(EntityManagerInterface::class);
+        $this->taskRepositoryMock = $this->createMock(TaskRepository::class);
 
-        $this->taskService = new TaskService($this->entityManager, $this->taskRepository);
+        $this->taskService = new TaskService(
+            $this->entityManagerMock,
+            $this->taskRepositoryMock
+        );
+
+        $this->user = new User();
     }
 
+    /**
+     * Test fetching tasks by user
+     */
     public function testFetchByUser(): void
     {
-        $user = new User();
-        $task = new Task();
-        $task->setUserTask($user);
+        $tasks = [new Task(), new Task()];
 
-        $this->taskRepository
+        $this->taskRepositoryMock
+            ->expects($this->once())
             ->method('findBy')
-            ->with(['user_task' => $user])
-            ->willReturn([$task]);
+            ->with(['user_task' => $this->user])
+            ->willReturn($tasks);
 
-        $tasks = $this->taskService->fetchByUser($user);
+        $result = $this->taskService->fetchByUser($this->user);
 
-        $this->assertCount(1, $tasks);
-        $this->assertSame($task, $tasks[0]);
+        $this->assertCount(2, $result);
+        $this->assertEquals($tasks, $result);
     }
 
+    /**
+     * Test creating a new task
+     */
     public function testCreate(): void
     {
-        $user = new User();
         $task = new Task();
 
-        $this->entityManager->expects($this->once())->method('persist')->with($task);
-        $this->entityManager->expects($this->once())->method('flush');
+        $this->entityManagerMock
+            ->expects($this->once())
+            ->method('persist')
+            ->with($this->callback(function (Task $persistedTask) use ($task) {
+                $this->assertSame($this->user, $persistedTask->getUserTask());
+                $this->assertInstanceOf(\DateTimeImmutable::class, $persistedTask->getCreatedAt());
+                return true;
+            }));
 
-        $this->taskService->create($task, $user);
+        $this->entityManagerMock
+            ->expects($this->once())
+            ->method('flush');
 
-        $this->assertSame($user, $task->getUserTask());
-        $this->assertInstanceOf(\DateTimeImmutable::class, $task->getCreatedAt());
+        $this->taskService->create($task, $this->user);
+    }
+
+    /**
+     * Test updating a task
+     */
+    public function testUpdate(): void
+    {
+        $task = new Task();
+        $task->setTitle('Updated Title');
+
+        $this->entityManagerMock
+            ->expects($this->once())
+            ->method('flush');
+
+        $this->taskService->update($task);
+    }
+
+    /**
+     * Test deleting a task
+     */
+    public function testDelete(): void
+    {
+        $task = new Task();
+
+        $this->entityManagerMock
+            ->expects($this->once())
+            ->method('remove')
+            ->with($task);
+
+        $this->entityManagerMock
+            ->expects($this->once())
+            ->method('flush');
+
+        $this->taskService->delete($task);
     }
 }
