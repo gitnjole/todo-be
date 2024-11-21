@@ -4,9 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Task;
 use App\Form\TaskType;
-use App\Repository\TaskRepository;
 use App\Service\TaskService;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,7 +48,7 @@ final class TaskController extends AbstractController
             return $this->redirectToRoute('app_task_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('task/create.html.twig', [
+        return $this->render('task/register.html.twig', [
             'task' => $task,
             'form' => $form,
         ]);
