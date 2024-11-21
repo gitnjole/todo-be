@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Entity\Task;
 use App\Entity\User;
 use App\Repository\TaskRepository;
-use Doctrine\ORM\EntityManagerInterface;
 
 class TaskService
 {
