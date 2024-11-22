@@ -18,6 +18,11 @@ class TaskService
         return $this->taskRepository->findByUser($user);
     }
 
+    public function fetchAll(User $user): array
+    {
+        return $this->taskRepository->findByUser($user);
+    }
+
     public function create(Task $task, User $user): void
     {
         $task->setUserTask($user);

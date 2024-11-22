@@ -38,7 +38,7 @@ final class TaskController extends AbstractController
             return $this->redirectToRoute('app_task_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('task/register.html.twig', [
+        return $this->render('task/create.html.twig', [
             'task' => $task,
             'form' => $form,
         ]);
@@ -74,12 +74,12 @@ final class TaskController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/delete', name: 'app_task_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_task_delete', methods: ['POST'])]
     public function delete(Request $request, Task $task, TaskService $taskService): Response
     {
         $this->denyAccessUnlessGranted('TASK_DELETE', $task);
 
-        if ($this->isCsrfTokenValid('delete'.$task->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$task->getId(), $request->getPayload()->getString('_token'))) {
             $taskService->delete($task);
         }
 
