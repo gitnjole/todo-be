@@ -108,7 +108,7 @@ final class TaskController extends AbstractController
     {
         $this->denyAccessUnlessGranted('TASK_DELETE', $task);
 
-        if ($this->isCsrfTokenValid('delete'.$task->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$task->getId(), $request->request->get('_token'))) {
             $taskService->delete($task);
         }
 
