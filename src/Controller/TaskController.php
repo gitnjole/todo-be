@@ -103,7 +103,7 @@ final class TaskController extends AbstractController
      *
      * @return Response
      */
-    #[Route('/{id}', name: 'app_task_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_task_delete', methods: ['POST'])]
     public function delete(Request $request, Task $task, TaskService $taskService): Response
     {
         $this->denyAccessUnlessGranted('TASK_DELETE', $task);
