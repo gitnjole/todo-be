@@ -10,7 +10,8 @@ class TaskService
 {
     public function __construct(
         private readonly TaskRepository $taskRepository,
-    ) {}
+    ) {
+    }
 
     public function fetchByUser(User $user): array
     {

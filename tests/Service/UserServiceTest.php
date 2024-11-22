@@ -27,7 +27,7 @@ class UserServiceTest extends TestCase
     }
 
     /**
-     * Test user registration process
+     * Test user registration process.
      */
     public function testRegisterUser(): void
     {
@@ -55,7 +55,7 @@ class UserServiceTest extends TestCase
     }
 
     /**
-     * Test that password is correctly hashed
+     * Test that password is correctly hashed.
      */
     public function testPasswordHashing(): void
     {
@@ -76,7 +76,7 @@ class UserServiceTest extends TestCase
     }
 
     /**
-     * Test that user is assigned default ROLE_USER
+     * Test that user is assigned default ROLE_USER.
      */
     public function testUserRoleAssignment(): void
     {

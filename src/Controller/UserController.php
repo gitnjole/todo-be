@@ -12,12 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-    /**
-     * @param Request $request
-     * @param UserService $userService
-     *
-     * @return Response
-     */
     #[Route('/register', name: 'app_register')]
     public function create(Request $request, UserService $userService): Response
     {
@@ -36,6 +30,7 @@ class UserController extends AbstractController
             );
 
             $this->addFlash('success', 'Your account has been created! You can now log in.');
+
             return $this->redirectToRoute('app_login');
         }
 

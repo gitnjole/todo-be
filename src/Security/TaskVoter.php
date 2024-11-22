@@ -27,7 +27,7 @@ class TaskVoter extends Voter
         /** @var Task $task */
         $task = $subject;
 
-        return match($attribute) {
+        return match ($attribute) {
             'TASK_VIEW' => $this->canView($task, $user),
             'TASK_EDIT' => $this->canEdit($task, $user),
             'TASK_DELETE' => $this->canDelete($task, $user),

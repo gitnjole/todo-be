@@ -15,11 +15,6 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[IsGranted('ROLE_USER')]
 final class TaskController extends AbstractController
 {
-    /**
-     * @param TaskService $taskService
-     *
-     * @return Response
-     */
     #[Route('', name: 'app_task_index', methods: ['GET'])]
     public function index(TaskService $taskService): Response
     {
@@ -30,12 +25,6 @@ final class TaskController extends AbstractController
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @param TaskService $taskService
-     *
-     * @return Response
-     */
     #[Route('/create', name: 'app_task_create', methods: ['GET', 'POST'])]
     public function create(Request $request, TaskService $taskService): Response
     {
@@ -45,6 +34,7 @@ final class TaskController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $taskService->create($task, $this->getUser());
+
             return $this->redirectToRoute('app_task_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -54,11 +44,6 @@ final class TaskController extends AbstractController
         ]);
     }
 
-    /**
-     * @param Task $task
-     *
-     * @return Response
-     */
     #[Route('/{id}', name: 'app_task_show', methods: ['GET'])]
     public function show(Task $task): Response
     {
@@ -69,13 +54,6 @@ final class TaskController extends AbstractController
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @param Task $task
-     * @param TaskService $taskService
-     *
-     * @return Response
-     */
     #[Route('/{id}/edit', name: 'app_task_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Task $task, TaskService $taskService): Response
     {
@@ -96,13 +74,6 @@ final class TaskController extends AbstractController
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @param Task $task
-     * @param TaskService $taskService
-     *
-     * @return Response
-     */
     #[Route('/{id}/delete', name: 'app_task_delete', methods: ['POST'])]
     public function delete(Request $request, Task $task, TaskService $taskService): Response
     {

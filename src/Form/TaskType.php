@@ -3,8 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Task;
-use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -25,7 +23,7 @@ class TaskType extends AbstractType
             ])
             ->add('finished', CheckboxType::class, [
                 'label' => 'Finished already?',
-                'required' => false
+                'required' => false,
             ]);
     }
 

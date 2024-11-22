@@ -27,7 +27,7 @@ class TaskServiceTest extends TestCase
     }
 
     /**
-     * Test fetching tasks by user
+     * Test fetching tasks by user.
      */
     public function testFetchByUser(): void
     {
@@ -46,7 +46,7 @@ class TaskServiceTest extends TestCase
     }
 
     /**
-     * Test creating a new task
+     * Test creating a new task.
      */
     public function testCreate(): void
     {
@@ -55,9 +55,10 @@ class TaskServiceTest extends TestCase
         $this->taskRepositoryMock
             ->expects($this->once())
             ->method('create')
-            ->with($this->callback(function (Task $persistedTask) use ($task) {
+            ->with($this->callback(function (Task $persistedTask) {
                 $this->assertSame($this->user, $persistedTask->getUserTask());
                 $this->assertInstanceOf(\DateTimeImmutable::class, $persistedTask->getCreatedAt());
+
                 return true;
             }));
 
@@ -65,7 +66,7 @@ class TaskServiceTest extends TestCase
     }
 
     /**
-     * Test updating a task
+     * Test updating a task.
      */
     public function testUpdate(): void
     {
@@ -81,7 +82,7 @@ class TaskServiceTest extends TestCase
     }
 
     /**
-     * Test deleting a task
+     * Test deleting a task.
      */
     public function testDelete(): void
     {
