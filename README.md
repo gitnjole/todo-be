@@ -16,6 +16,13 @@ This is a web-based TODO application built using the Symfony PHP framework. The 
 - Delete TODO items
 - Persistent storage of tasks in database
 - Secure user-specific task management
+  
+## Development Status
+
+This assignment is under active development. The main branch (`master`) contains the stable implementation of the core features as specified.
+
+A second branch (`todo-dev`) is currently being developed to introduce API requests using JWT authentication.
+Please note that the dev branch is not yet stable and represents the first working version under active testing and refinement.
 
 ## Prerequisites
 
@@ -103,3 +110,4 @@ Currently, there are two tests, `TaskServiceTest` and `UserServiceTest` which bo
 <div align="center">
   <img src="assets/images/overview.png" alt="Task Management Screenshot">
 </div>
+
