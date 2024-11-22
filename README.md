@@ -11,9 +11,9 @@ This is a web-based TODO application built using the Symfony PHP framework. The 
 ## Features
 
 - User Registration and Authentication
-- Create new TODO items
-- Mark TODO items as finished
-- Delete TODO items
+- Create new tasks
+- Mark tasks as finished
+- Delete tasks
 - Persistent storage of tasks in database
 - Secure user-specific task management
   
