@@ -37,5 +37,6 @@ services:
       - "3307:3306"
     volumes:
       - database_data:/var/lib/mysql
+      - ./phpstan.neon.dist:/var/www/html/phpstan.neon.dist
 volumes:
   database_data:
