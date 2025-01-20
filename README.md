@@ -26,12 +26,10 @@ Please note that the dev branch is not yet stable and represents the first worki
 
 ## Prerequisites
 
-- PHP 8.1+
-- Composer
-- Symfony CLI
-- MySQL database
+- Git
+- Docker and docker-compose package
 
-## Installation Steps
+## Quick installation using Docker
 
 1. Clone the repository
 ```bash
@@ -39,25 +37,17 @@ git clone https://github.com/gitnjole/todo-be.git
 cd todo-be
 ```
 
-2. Install dependencies
+2. Build Docker containers
 ```bash
-composer install
+docker compose build
 ```
 
-3. Configure environment variables
-- Copy `.env.example` to `.env`
-- Update database connection settings in `.env`
-
-4. Create database and run migrations
+3. Start Docker
 ```bash
-php bin/console doctrine:database:create
-php bin/console doctrine:migrations:migrate
+docker compose up -d
 ```
 
-5. Start the development server
-```bash
-symfony server:start
-```
+4. Access the application at [localhost:8080](http://localhost:8080)
 
 ## Project Structure
 
