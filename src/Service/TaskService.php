@@ -13,6 +13,12 @@ class TaskService
     ) {
     }
 
+    /**
+     * 
+     * @param \App\Entity\User $user
+     * 
+     * @return Task[]
+     */
     public function fetchByUser(User $user): array
     {
         return $this->taskRepository->findByUser($user);
