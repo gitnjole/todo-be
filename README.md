@@ -95,6 +95,14 @@ php bin/phpunit
 
 Currently, there are two tests, `TaskServiceTest` and `UserServiceTest` which both cover core business logic.
 
+## Running PHPStan
+
+```bash
+docker compose exec php vendor/bin/phpstan analyse src
+```
+
+Expected output:
+ `[OK] No errors`                                                                                          
 # TODO
 
 <div align="center">
