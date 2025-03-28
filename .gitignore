@@ -36,3 +36,4 @@ phpstan.neon
 ###
 config/secrets
 src/Command/RegenerateAppSecretCommand.php
+.phpactor.json
