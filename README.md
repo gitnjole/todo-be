@@ -37,17 +37,22 @@ git clone https://github.com/gitnjole/todo-be.git
 cd todo-be
 ```
 
-2. Build Docker containers
+2. Create and fill .env file
+```bash
+cp .env.example .env
+```
+
+3. Build Docker containers
 ```bash
 docker compose build
 ```
 
-3. Start Docker
+4. Start Docker
 ```bash
 docker compose up -d
 ```
 
-4. Access the application at [localhost:8080](http://localhost:8080)
+5. Access the application at [localhost:8080](http://localhost:8080)
 
 ## Project Structure
 
