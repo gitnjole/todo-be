@@ -5,15 +5,24 @@ RUN apt-get update && apt-get install -y \
     unzip \
     libzip-dev \
     libicu-dev \
+    supervisor \
+    cron \
     && docker-php-ext-install \
     pdo_mysql \
     zip \
-    intl
+    intl \
+    sockets
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-RUN echo '#!/bin/sh\n\
-php bin/console doctrine:migrations:migrate --no-interaction' > /usr/local/bin/run-migrations \
-    && chmod +x /usr/local/bin/run-migrations
+RUN mkdir -p /var/log/supervisor
+
+COPY docker/php/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+COPY docker/php/docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 WORKDIR /var/www/html
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
