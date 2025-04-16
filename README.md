@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is a web-based TODO application built using the Symfony PHP framework. The application provides user authentication and task management functionality, allowing users to create, track, and manage their personal TODO lists.
+This is a web-based TODO application built using the Symfony PHP framework. The application provides user authentication and task management functionality, allowing users to create, track, and manage their personal TODO lists. Application can also be configured to delete tasks after a specified period of time.
 
 <div align="center">
   <img src="assets/images/landing.png" alt="Task Management Screenshot">
@@ -16,13 +16,11 @@ This is a web-based TODO application built using the Symfony PHP framework. The 
 - Delete tasks
 - Persistent storage of tasks in database
 - Secure user-specific task management
+- Automatic task deletion
   
 ## Development Status
 
 This assignment is under active development. The main branch (`master`) contains the stable implementation of the core features as specified.
-
-A second branch (`todo-dev`) is currently being developed to introduce API requests using JWT authentication.
-Please note that the dev branch is not yet stable and represents the first working version under active testing and refinement.
 
 ## Prerequisites
 
@@ -57,24 +55,28 @@ docker compose up -d
 ## Project Structure
 
 ```
-src/
-├── Controller         # Handles HTTP requests and responses
-│   ├── SecurityController.php
-│   ├── TaskController.php
-│   └── UserController.php
-├── Entity             # Database entity definitions
-│   ├── Task.php
-│   └── User.php
-├── Form               # Form type definitions
-│   ├── RegistrationType.php
-│   └── TaskType.php
-├── Repository         # Database query repositories
-│   ├── TaskRepository.php
-│   └── UserRepository.php
-├── Security           # Authentication and authorization
-│   ├── AppAuthenticator.php
-│   └── TaskVoter.php
-└── Service            # Business logic services
+src
+├── Command         # Handles scheduled task deletion
+│   ├── ConfigureTaskDeletionCommand.php
+│   └── ScheduleTaskDeletionCommand.php
+├── Controller      # Handles HTTP requests and responses                    
+│   ├── SecurityController.php
+│   ├── TaskController.php
+│   └── UserController.php
+├── Entity          # Database entity definitions
+│   ├── Task.php
+│   └── User.php
+├── Form            # Form type definitions
+│   ├── RegistrationType.php
+│   └── TaskType.php
+├── Repository      # Database query repositories
+│   ├── TaskRepository.php
+│   └── UserRepository.php
+├── Security        # Authentication and authorization
+│   ├── AppAuthenticator.php
+│   └── TaskVoter.php
+└── Service         # Business logic services
+    ├── TaskAutoDeleteService.php
     ├── TaskService.php
     └── UserService.php
 ```
@@ -91,6 +93,7 @@ src/
 - User-specific task access control
 - CSRF protection
 - Authentication firewall
+- Environment defined login for services
 
 ## Running Tests
 
