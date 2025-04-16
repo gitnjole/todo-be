@@ -29,20 +29,15 @@ RUN echo "0 2 * * * cd /var/www/html && php bin/console app:schedule-task-deleti
 
 RUN echo '#!/bin/sh\n\
 set -e\n\
-# Install dependencies\n\
+git config --global --add safe.directory /var/www/html\n\
 composer install --prefer-dist --no-progress --no-interaction\n\
-# Wait for database\n\
 until php bin/console doctrine:query:sql "SELECT 1" >/dev/null 2>&1; do\n\
-  echo "Waiting for database..."\n\
+  echo "Waiting on database..."\n\
   sleep 1\n\
 done\n\
-# Run migrations\n\
 php bin/console doctrine:migrations:migrate --no-interaction\n\
-# Start cron service\n\
 service cron start\n\
-# Start workers in background\n\
 /usr/local/bin/start-workers &\n\
-# Start PHP-FPM\n\
 exec php-fpm' > /usr/local/bin/docker-entrypoint \
     && chmod +x /usr/local/bin/docker-entrypoint
 
