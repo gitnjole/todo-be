@@ -48,4 +48,25 @@ class TaskRepository extends ServiceEntityRepository
         $this->getEntityManager()->remove($task);
         $this->getEntityManager()->flush();
     }
+
+    /**
+     * Delete tasks older than a specified date
+     * 
+     * @param \DateTimeInterface $date
+     * @return int
+     */
+    public function deleteTasksOlderThan(\DateTimeInterface $date): int
+    {
+        if (!$date instanceof \DateTimeImmutable) {
+            $date = new \DateTimeImmutable($date->format('Y-m-d H:i:s'));
+        }
+
+        $queryBuilder = $this->createQueryBuilder('t')
+            ->delete()
+            ->where('t.created_at < :date')
+            ->setParameter('date', $date);
+
+        $query = $queryBuilder->getQuery();
+        return $query->execute();
+    }
 }
