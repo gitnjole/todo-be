@@ -9,7 +9,12 @@ services:
       DATABASE_URL: ${DATABASE_URL}
       APP_ENV: ${APP_ENV}
       APP_SECRET: ${APP_SECRET}
-
+      MESSENGER_TRANSPORT_DSN: ${MESSENGER_TRANSPORT_DSN:-amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@rabbitmq:5672/%2f/messages}
+      TASK_AUTO_DELETE_DAYS: ${TASK_AUTO_DELETE_DAYS:-30}
+      TASK_AUTO_DELETE_ENABLED: ${TASK_AUTO_DELETE_ENABLED:-true}
+    depends_on:
+      - rabbitmq
+      
   nginx:
     image: nginx:alpine
     ports:
@@ -35,11 +40,11 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
-    volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
 
 volumes:
   db_data:
