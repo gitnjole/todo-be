@@ -6,15 +6,7 @@ framework:
             # https://symfony.com/doc/current/messenger.html#transport-configuration
             async: '%env(MESSENGER_TRANSPORT_DSN)%'
             failed: 'doctrine://default?queue_name=failed'
-            task_deletion:
-                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
-                options:
-                    exchange:
-                        name: task_deletion
-                        type: direct
-                    queues:
-                        task_deletion:
-                            binding_keys: [task_deletion]
+            task_deletion: 'sync://'
 
         routing:
             'App\Message\TaskDeletionMessage': task_deletion
@@ -23,5 +15,6 @@ when@test:
     framework:
         messenger:
             transports:
-                async: 'in-memory://'
                 task_deletion: 'in-memory://'
+            routing:
+                'App\Message\TaskDeletionMessage': task_deletion
