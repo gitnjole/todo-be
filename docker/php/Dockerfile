@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
     pdo_mysql \
     zip \
     intl \
+    sockets \
     && pecl install amqp \
     && docker-php-ext-enable amqp
 
